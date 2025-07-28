@@ -1,5 +1,6 @@
+import { get } from "http";
 import { PlayerModel } from "../models/player-model";
-import { getPlayerById, getPlayers, insertPlayer } from "../repositories/players-repository";
+import { deletePlayer, getPlayerById, getPlayers, insertPlayer } from "../repositories/players-repository";
 import { noContent, ok } from "../utils/http-helper";
 
 export const getPlayerService = async () => {
@@ -39,9 +40,16 @@ export const createPlayer = async (playerData: PlayerModel) => {
             return await ok(newPlayer);
         } else {
             return await noContent();
-            console.error("Failed to create player");
         }
     } else {
         return await noContent();
     }
+}
+
+export const deletarPlayer = async (id: number) => {
+
+    let response = null;
+    await deletePlayer(id);
+    response = await ok({ message: "Player deleted successfully" });
+    return response;
 }

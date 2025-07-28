@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createPlayer, getPlayerByIdService, getPlayerService } from '../services/players-service';
+import { createPlayer, deletarPlayer, getPlayerByIdService, getPlayerService } from '../services/players-service';
 
 export const getPlayer = async (req: Request, res: Response) => {
     const HttpResponse = await getPlayerService();
@@ -20,6 +20,12 @@ export const postPlayer = async (req: Request, res: Response) => {
         res.status(HttpResponse.statusCode).json(HttpResponse.body);
     } else {
         res.status(400).send(); // Bad Request
-        
     }
+    
+}
+
+export const deletePlayer = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const HttpResponse = await deletarPlayer(Number(id));
+    res.status(HttpResponse.statusCode).send(); // No Content
 }
