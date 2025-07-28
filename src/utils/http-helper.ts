@@ -16,3 +16,10 @@ export const noContent = (): Promise<HttpResponse> => {
         body: null
     });
 }
+
+export const badRequest = (data: any): Promise<HttpResponse> => {
+    return Promise.resolve({
+        statusCode: 400,
+        body: null
+    });
+}

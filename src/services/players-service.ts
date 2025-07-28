@@ -1,4 +1,5 @@
-import { getPlayerById, getPlayers } from "../repositories/players-repository";
+import { PlayerModel } from "../models/player-model";
+import { getPlayerById, getPlayers, insertPlayer } from "../repositories/players-repository";
 import { noContent, ok } from "../utils/http-helper";
 
 export const getPlayerService = async () => {
@@ -31,6 +32,16 @@ export const getPlayerByIdService = async (id: number) => {
 
 }
 
-export const createPlayer = async (playerData: any) => {
-    
+export const createPlayer = async (playerData: PlayerModel) => {
+    if (playerData) {
+        const newPlayer = await insertPlayer(playerData);
+        if (newPlayer) {
+            return await ok(newPlayer);
+        } else {
+            return await noContent();
+            console.error("Failed to create player");
+        }
+    } else {
+        return await noContent();
+    }
 }

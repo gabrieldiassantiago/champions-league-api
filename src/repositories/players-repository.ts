@@ -973,4 +973,8 @@ export const getPlayerById = async (id: number) : Promise<PlayerModel | null> =>
     return player || null;
 }
 
-
+export const insertPlayer = async (player: PlayerModel) : Promise<PlayerModel> => {
+    const novoPlayer = {...player, id: database.length + 1 };
+    database.push(novoPlayer);
+    return novoPlayer;
+}
