@@ -28,7 +28,7 @@ export const postPlayer = async (req: Request, res: Response) => {
 export const deletePlayer = async (req: Request, res: Response) => {
     const id = req.params.id;
     const HttpResponse = await deletarPlayer(Number(id));
-    res.status(HttpResponse.statusCode).send(); // No Content
+    res.status(HttpResponse.statusCode).json(HttpResponse.body);
 }
 
 export const updatePlayer = async (req: Request, res: Response) => {

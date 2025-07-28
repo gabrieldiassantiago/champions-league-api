@@ -48,11 +48,15 @@ export const createPlayer = async (playerData: PlayerModel) => {
 }
 
 export const deletarPlayer = async (id: number) => {
-
     let response = null;
-    await deletePlayer(id);
-    response = await ok({ message: "Player deleted successfully" });
+    const deleted = await deletePlayer(id);
+    if (deleted) {
+        response = await ok({ message: "Player deleted successfully" });
+    } else  {
+        response = await noContent();
+    }
     return response;
+    
 }
 
 export const atulizarPlayer = async (id: number, statistics: StatisticsModel) => {
