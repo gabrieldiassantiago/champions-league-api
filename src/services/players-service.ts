@@ -1,7 +1,8 @@
 import { get } from "http";
 import { PlayerModel } from "../models/player-model";
-import { deletePlayer, getPlayerById, getPlayers, insertPlayer } from "../repositories/players-repository";
+import { deletePlayer, findAndUpdatePlayer, getPlayerById, getPlayers, insertPlayer } from "../repositories/players-repository";
 import { noContent, ok } from "../utils/http-helper";
+import { StatisticsModel } from "../models/statistics-model";
 
 export const getPlayerService = async () => {
     // Simulate a database call
@@ -52,4 +53,16 @@ export const deletarPlayer = async (id: number) => {
     await deletePlayer(id);
     response = await ok({ message: "Player deleted successfully" });
     return response;
+}
+
+export const atulizarPlayer = async (id: number, statistics: StatisticsModel) => {
+    
+    const response = await findAndUpdatePlayer(id, statistics);
+  
+    if (response) {
+        return await ok(response);
+    } else {
+        return await noContent();
+    }
+
 }
